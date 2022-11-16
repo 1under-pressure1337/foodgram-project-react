@@ -4,6 +4,7 @@ from django.db import models
 
 from .managers import CustomUserManager
 
+
 class CustomUser(AbstractUser):
     objects = CustomUserManager()
     email = models.EmailField(
