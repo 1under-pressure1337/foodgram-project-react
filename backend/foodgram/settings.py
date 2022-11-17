@@ -9,11 +9,9 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY', default='gjegm90bz*immlg#9^7_y365#^1$n6j@s71^d*kr9u8k3=t0wa')
 
 
-
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 
 INSTALLED_APPS = [
@@ -64,7 +62,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'foodgram.wsgi.application'
 
 
-
 # DATABASES = {
 #    'default': {
 #        'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.postgresql'),
@@ -111,7 +108,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 
 STATIC_URL = '/static/'
