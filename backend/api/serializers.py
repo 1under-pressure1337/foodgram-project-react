@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from drf_extra_fields.fields import Base64ImageField
 from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
-                            ShoppingCart, Tag)
+                            RecipeTag, ShoppingCart, Tag)
 from rest_framework import serializers
 from users.models import Subscription
 
@@ -223,18 +223,27 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
         return recipe
 
     def update(self, instance, validated_data):
-        if 'ingredients' in validated_data:
-            ingredients = validated_data.pop('ingredients')
+        ingredients = self.context['request'].data['ingredients']
+        tags = self.context['request'].data['tags']
+        instance.name = validated_data.get('name', instance.name)
+        instance.image = validated_data.get('image', instance.image)
+        instance.text = validated_data.get('text', instance.text)
+        instance.cooking_time = validated_data.get(
+            'cooking_time', instance.cooking_time
+        )
+        instance.save()
+        if tags:
+            RecipeTag.objects.filter(recipe=instance).delete()
+            instance.tags.clear()
+            instance.tags.set(tags)
+        if ingredients:
+            RecipeIngredient.objects.filter(recipe=instance).delete()
             instance.ingredients.clear()
-            self.create_ingredients(
-                ingredients,
-                instance,
+            self.recipe_ingredient_create(
+                recipe=instance,
+                ingredients=ingredients
             )
-        if 'tags' in validated_data:
-            instance.tags.set(
-                validated_data.pop('tags'))
-        return super().update(
-            instance, validated_data)
+        return instance
 
 
 class SubscriptionSerializer(CustomUserSerializer):
