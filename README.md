@@ -1,5 +1,4 @@
-![workflow](https://github.com/IgorKalchenko/foodgram-project-react/actions/workflows/main.yml/badge.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![workflow](https://github.com/1under-pressure1337/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 
 # О проекте
 
