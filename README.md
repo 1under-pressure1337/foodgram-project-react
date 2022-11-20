@@ -41,7 +41,7 @@ git clone https://github.com/1under-pressure1337/foodgram-project-react.git
 ```
 
 ```
-cd yamdb_final
+cd foodgram-project-react
 ```
 Перейти в директорию 'infra':
 
