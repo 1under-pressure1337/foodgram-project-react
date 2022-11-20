@@ -265,8 +265,11 @@ class SubscriptionSerializer(CustomUserSerializer):
 
     def get_recipes(self, obj):
         recipes = obj.recipes.all()[:3]
-        request = self.context.get('request')
+        request = self.context.get('recept_limit')
         return RecipeShortSerializer(
             recipes, many=True,
-            context={'request': request}
+            context={'recept_limit': request}
         ).data
+
+# Там приходит параметр recept_limit с фронтенда. В нём цифра 3.
+# По хорошему надо её из request достать и да, сделать срез как на скрине.
