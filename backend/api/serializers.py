@@ -266,7 +266,7 @@ class SubscriptionSerializer(CustomUserSerializer):
     def get_recipes(self, obj):
         recipes = obj.recipes.all()[:3]
         user = self.context.get('request')
-        return SubscriptionSerializer(
+        return serializers.SerializerMethodField(
             recipes, many=True,
             context={'request': user}
         ).data
