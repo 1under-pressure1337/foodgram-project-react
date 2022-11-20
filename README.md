@@ -1,5 +1,4 @@
-![workflow](https://github.com/1under-pressure1337/foodgram-project-react/actions/workflows/main.yml/badge.svg)
-
+![example workflow](https://github.com/1under-pressure1337/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 # О проекте
 
 Cайт Foodgram, «Продуктовый помощник». На этом сервисе пользователи могут:
