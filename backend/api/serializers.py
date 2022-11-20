@@ -246,27 +246,26 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
         return instance
 
 
-class SubscriptionSerializer(CustomUserSerializer):
-    recipes = RecipeShortSerializer(many=True, read_only=True)
+class FollowGetSerializer(serializers.ModelSerializer):
+    is_subscribed = serializers.SerializerMethodField()
+    recipes = serializers.SerializerMethodField()
     recipes_count = serializers.SerializerMethodField()
 
     class Meta:
+        fields = ('email', 'id', 'username', 'first_name', 'last_name',
+                  'is_subscribed', 'recipes', 'recipes_count')
         model = User
-        fields = (
-            'email',
-            'id',
-            'username',
-            'first_name',
-            'last_name',
-            'is_subscribed',
-            'recipes',
-            'recipes_count',
+
+    def get_is_subscribed(self, obj):
+        return (Subscription.objects.filter(
+            user=self.context['request'].user,
+            following=obj).exists()
         )
 
     def get_recipes(self, obj):
         recipes = obj.recipes.all()[:3]
+        request = self.context.get('request')
         return RecipeShortSerializer(
-            recipes,
-            many=True,
-            context={'request': self.context.get('request')}
+            recipes, many=True,
+            context={'request': request}
         ).data
