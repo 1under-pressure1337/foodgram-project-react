@@ -246,7 +246,7 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
         return instance
 
 
-class FollowGetSerializer(serializers.ModelSerializer):
+class SubscriptionSerializer(serializers.ModelSerializer):
     is_subscribed = serializers.SerializerMethodField()
     recipes = serializers.SerializerMethodField()
     recipes_count = serializers.SerializerMethodField()
