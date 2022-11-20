@@ -265,8 +265,11 @@ class SubscriptionSerializer(CustomUserSerializer):
 
     def get_recipes(self, obj):
         recipes = obj.recipes.all()[:3]
-        request = self.context.get('request')
         return RecipeShortSerializer(
-            recipes, many=True,
-            context={'request': request}
+            recipes,
+            many=True,
+            context={'request': self.context.get('request')}
         ).data
+
+# Там наверно в context есть request, а в нем есть словарь с kwargs и можно kwargs.get('recept_limit')
+# Чтобы посмотреть, что там есть без отладчика можно сделать print и в консоле посмотреть.
