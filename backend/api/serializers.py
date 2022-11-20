@@ -256,14 +256,9 @@ class SubscriptionSerializer(serializers.ModelSerializer):
                   'is_subscribed', 'recipes', 'recipes_count')
         model = User
 
-    def get_is_subscribed(self, obj):
-        return (Subscription.objects.filter(
-            user=self.context['request'].user,
-            following=obj).exists()
-        )
-
     def get_recipes(self, obj):
-        recipes = obj.recipes.all()[:3]
+        request = self.context.get('request')
+        recipes = obj.recipes.all()[:request.GET.get('recipes_limit')]
         request = self.context.get('request')
         return RecipeShortSerializer(
             recipes, many=True,
