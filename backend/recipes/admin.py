@@ -60,4 +60,3 @@ admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(ShoppingCart, ShoppingCartAdmin)
 admin.site.register(Favorite, FavoriteAdmin)
-# 1
