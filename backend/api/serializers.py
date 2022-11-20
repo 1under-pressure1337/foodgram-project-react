@@ -247,7 +247,7 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionSerializer(CustomUserSerializer):
-    recipes = serializers.SerializerMethodField()
+    recipes = RecipeShortSerializer(many=True, read_only=True)
     recipes_count = serializers.SerializerMethodField()
 
     class Meta:
@@ -265,11 +265,8 @@ class SubscriptionSerializer(CustomUserSerializer):
 
     def get_recipes(self, obj):
         recipes = obj.recipes.all()[:3]
-        request = self.context.get('recept_limit')
+        request = self.context.get('request')
         return RecipeShortSerializer(
             recipes, many=True,
-            context={'recept_limit': request}
+            context={'request': request}
         ).data
-
-# Там приходит параметр recept_limit с фронтенда. В нём цифра 3.
-# По хорошему надо её из request достать и да, сделать срез как на скрине.
