@@ -248,7 +248,7 @@ class RecipeCreateUpdateSerializer(serializers.ModelSerializer):
 
 class SubscriptionSerializer(CustomUserSerializer):
     recipes = RecipeShortSerializer(many=True, read_only=True)
-    recipes_count = serializers.SerializerMethodField()
+    recipes_count = serializers.SerializerMethodField(max_value=3)
 
     class Meta:
         model = User
